@@ -1,0 +1,14 @@
+python nmt.py \
+    --attention=scaled_luong \
+    --src=vi --tgt=en \
+    --vocab_prefix=scripts/iwslt15/vocab  \
+    --train_prefix=scripts/iwslt15/train \
+    --dev_prefix=scripts/iwslt15/tst2012  \
+    --test_prefix=scripts/iwslt15/tst2013 \
+    --out_dir=tmp/nmt_attention_model \
+    --num_train_steps=12000 \
+    --steps_per_stats=100 \
+    --num_layers=2 \
+    --num_units=128 \
+    --dropout=0.2 \
+    --metrics=bleu
