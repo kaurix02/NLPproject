@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import sys
+import codecs
 
 fromDoc = []
 toDoc = []
@@ -45,15 +46,14 @@ for child in root:
 
 #print target_list[0]   
 
-from_file = open(from_f, 'w')
-to_file = open(to_f, 'w')
+from_file = codecs.open(from_f, 'w', encoding="UTF-8", errors='ignore')
+to_file = codecs.open(to_f, 'w', encoding="UTF-8", errors='ignore')
 
 for i  in range (len(fromDoc)):
     #Directories of input
     from_path = 'data/' + fromDoc[i]
     to_path = 'data/' + toDoc[i]
     #print 324
-    
     #Directories of output
     
 
@@ -63,6 +63,66 @@ for i  in range (len(fromDoc)):
     with gzip.open(to_path, 'rb') as f:
         tree_to = ET.parse(f, ET.XMLParser(encoding='utf-8'))
         root_to = tree_to.getroot()
+    #FROM-FILE
+    sent = ""
+    ind1=0
+    ind2=0
+    jj=target_list[i][ind1][0].split(" ")
+    for ind_s in range(len(root_from)):
+        s=root_from[ind_s]
+        if s.tag!="s":  #wrong tag
+            continue
+        if int(s.attrib["id"])>int(jj[ind2]):
+            ind_s-=int(s.attrib["id"])-int(jj[ind2])+1
+            continue
+        if s.attrib["id"]==jj[ind2]:
+            for w in s:
+                if w.tag!="w":
+                    continue
+                sent+=w.text+" "
+            sent = re.sub(r'\s+([?.!",\'])', r'\1', sent)
+            if ind2==len(jj)-1: #this alignment has been completed
+                if ind1 == len(target_list[i])-1:   #this file has been completed
+                    break
+                ind1+=1
+                ind2=0
+                from_file.write(sent)
+                sent=""
+                jj=target_list[i][ind1][0].split(" ")
+            else:
+                ind2+=1 #get more sentences of this alignment
+    #TO-FILE
+    sent = ""
+    ind1=0
+    ind2=0
+    jj=target_list[i][ind1][1].split(" ")
+    for ind_s in range(len(root_to)):
+        s=root_to[ind_s]
+        if s.tag!="s":  #wrong tag
+            continue
+        if int(s.attrib["id"])>int(jj[ind2]):
+            ind_s-=int(s.attrib["id"])-int(jj[ind2])+1
+            continue
+        if s.attrib["id"]==jj[ind2]:
+            for w in s:
+                if w.tag!="w":
+                    continue
+                sent+=w.text+" "
+            sent = re.sub(r'\s+([?.!",\'])', r'\1', sent)
+            if ind2==len(jj)-1: #this alignment has been completed
+                if ind1 == len(target_list[i])-1:   #this file has been completed
+                    break
+                ind1+=1
+                ind2=0
+                to_file.write(sent)
+                sent=""
+                jj=target_list[i][ind1][1].split(" ")
+            else:
+                ind2+=1 #get more sentences of this alignment
+from_file.close()
+to_file.close()
+        
+"""
     #print 9234
     for j in target_list[i]:
         #print 45
@@ -87,6 +147,7 @@ for i  in range (len(fromDoc)):
             s = re.sub(r'\s+([?.!",\'])', r'\1', s)
             from_file.write(s.encode('utf-8'))
         from_file.write("\n")
+"""
 from_file.close()
 to_file.close()
         
