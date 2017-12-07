@@ -86,7 +86,7 @@ for i  in range (len(fromDoc)):
                     break
                 ind1+=1
                 ind2=0
-                from_file.write(sent)
+                from_file.write(sent+"\n")
                 sent=""
                 jj=target_list[i][ind1][0].split(" ")
             else:
@@ -114,7 +114,7 @@ for i  in range (len(fromDoc)):
                     break
                 ind1+=1
                 ind2=0
-                to_file.write(sent)
+                to_file.write(sent+"\n")
                 sent=""
                 jj=target_list[i][ind1][1].split(" ")
             else:
