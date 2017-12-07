@@ -1,0 +1,13 @@
+/nmt/data/en
+/nmt/data/et
+/nmt/data/ka
+/nmt/data/tr
+/nmt/data/fi
+/__pycache__
+/nmt/__pycache__
+/nmt/g3doc
+
+*.pyc
+*.gz
+*.tar
+*.xml
