@@ -25,7 +25,6 @@ from_file = codecs.open(from_f, 'w', encoding="UTF-8", errors='ignore')    #wher
 to_file = codecs.open(to_f, 'w', encoding="UTF-8", errors='ignore')    #where to write language2
 
 def inloop(root):
-    target_list = list()
     fromDoc=root.attrib['fromDoc']
     toDoc=root.attrib['toDoc']
     target = list()
@@ -33,8 +32,6 @@ def inloop(root):
         t = i.attrib['xtargets']
         if len(t.split(';')[0])>0 and len(t.split(';')[1])>0:
             target.append(tuple(t.split(';')))
-        target_list.append(target)
-
     #Directories of input
     from_path = 'data/' + fromDoc
     to_path = 'data/' + toDoc
@@ -49,7 +46,7 @@ def inloop(root):
     sent = ""
     ind1=0
     ind2=0
-    jj=target_list[0][ind1][0].split(" ")
+    jj=target[ind1][0].split(" ")
     for ind_s in range(len(root_from)):
         s=root_from[ind_s]
         if s.tag!="s":  #wrong tag
@@ -63,21 +60,20 @@ def inloop(root):
                     continue
                 sent+=w.text+" "
             sent = re.sub(r'\s+([?.!",\'])', r'\1', sent)
-        if ind2==len(jj)-1: #this alignment has been completed
-            if ind1 == len(target_list[0])-1:   #this file has been completed
+            ind2+=1
+        if ind2==len(jj): #this alignment has been completed
+            if ind1 == len(target)-1:   #this file has been completed
                 break
             ind1+=1
             ind2=0
             from_file.write(sent+"\n")
             sent=""
-            jj=target_list[0][ind1][0].split(" ")
-        else:
-            ind2+=1 #get more sentences of this alignment
+            jj=target[ind1][0].split(" ")
     #TO-FILE
     sent = ""
     ind1=0
     ind2=0
-    jj=target_list[0][ind1][1].split(" ")
+    jj=target[ind1][1].split(" ")
     for ind_s in range(len(root_to)):
         s=root_to[ind_s]
         if s.tag!="s":  #wrong tag
@@ -91,16 +87,15 @@ def inloop(root):
                     continue
                 sent+=w.text+" "
             sent = re.sub(r'\s+([?.!",\'])', r'\1', sent)
-        if ind2==len(jj)-1: #this alignment has been completed
-            if ind1 == len(target_list[0])-1:   #this file has been completed
+            ind2+=1
+        if ind2==len(jj): #this alignment has been completed
+            if ind1 == len(target)-1:   #this file has been completed
                 break
             ind1+=1
             ind2=0
             to_file.write(sent+"\n")
             sent=""
-            jj=target_list[0][ind1][1].split(" ")
-        else:
-            ind2+=1 #get more sentences of this alignment
+            jj=target[ind1][1].split(" ")
 
 with gzip.open(alignfile, 'rb') as f:
     part=""
