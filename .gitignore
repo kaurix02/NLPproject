@@ -1,11 +1,10 @@
-/nmt/data/en
-/nmt/data/et
-/nmt/data/ka
-/nmt/data/tr
-/nmt/data/fi
+/nmt/data
 /__pycache__
 /nmt/__pycache__
 /nmt/g3doc
+/nmt/tmp
+/nmt/scripts
+/nmt_xfer_related_low_resource-master
 
 *.pyc
 *.gz

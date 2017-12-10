@@ -1,13 +1,13 @@
 python nmt.py \
     --attention=scaled_luong \
-    --src=vi --tgt=en \
-    --vocab_prefix=scripts/iwslt15/vocab  \
-    --train_prefix=scripts/iwslt15/train \
-    --dev_prefix=scripts/iwslt15/tst2012  \
-    --test_prefix=scripts/iwslt15/tst2013 \
-    --out_dir=tmp/nmt_attention_model \
-    --num_train_steps=12000 \
-    --steps_per_stats=100 \
+    --src=et --tgt=en \
+    --vocab_prefix=data/et-en/vocab2  \
+    --train_prefix=data/et-en/train \
+    --dev_prefix=data/et-en/dev  \
+    --test_prefix=data/et-en/test \
+    --out_dir=tmp/nmt_eten_ep_model \
+    --num_train_steps=20000 \
+    --steps_per_stats=500 \
     --num_layers=2 \
     --num_units=128 \
     --dropout=0.2 \

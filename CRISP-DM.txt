@@ -1,0 +1,77 @@
+Ex1 
+
+    Identifying your business goals  
+
+    Background  
+
+    The idea of transfer learning in neural machine translation is to use the translation corpora of different languages to pre-train a model, followed by re-training on a low-resource language translation corpus. In theory, this should result in better translation models for low-resource languages. The main points of interest to research are the effects of morphological similitude between languages and initial translation corpora sizes on the magnitude of improvement. For instance, is using a small Finnish-English model (parent) to initialize learning an Estonian-English model (child) more effective than using naive Estonian-English model (without transfer learning) or using a different parent language with a larger translation corpus (e.g German-English or Turkish-English) and by how much. It was inspired by a last year's scientific article (https://aclweb.org/anthology/D16-1163). 
+
+    Business goals  
+
+    No business goals – for now it is a strictly exploratory task that, if successful, may prove beneficial to nationalities who use low-resource languages. 
+
+    Business success criteria  
+
+    No business criteria 
+
+    Assessing your situation  
+
+    Inventory of resources  
+
+    We are using the OpenSubtitles20181 language corpora, which consists of user-made subtitles with sentence alignment information between language corpora. For the main neural network model we are using a publicly available encoder-decoder NMT model2 with attention made for Tensorflow 1.4. 
+
+    We also have two students who are willing to use sugar and chocolate to motivate themselves to work. 
+
+    Requirements, assumptions, and constraints  
+
+    Ability to train and assess reasonably complex neural networks repeatedly using training and testing data of various sizes in reasonable time. 
+
+    Risks and contingencies  
+
+    If a model fails to be trained or trained embeddings cannot be transferred to a new language in the required time, a new model has to be created using the present model as basis. 
+
+    Terminology  
+
+    Under translation efficiency, we mean the BLEU score calculated from the predicted translations of a test set. A BLEU score is a geometric mean of the presence of n-grams in the predicted text compared to the proposed translation weighed by the n value. 
+
+    Costs and benefits  
+
+    Costs time, benefits knowledge. 
+
+    Defining your data-mining goals  
+
+    Data-mining goals  
+
+    Trained translation models for at least two morphologically different low-resource languages that performed best, along with a report detailing how they were achieved and a poster that illustrates the work and the conclusions. 
+
+    Data-mining success criteria  
+
+    A relative estimate of how much the transfer learning process helps and the potential effect of choosing a parent language similar to the child language 
+
+ 
+
+Ex2 
+
+    Gathering data  
+
+    Outline data requirements  
+
+    Translation corpora for each language pair (Estonian-English, Finnish-English etc.) used. 
+
+    Verify data availability  
+
+    Good translation corpora for low-resource languages are very difficult to find. However, we can make our own! 
+
+    Define selection criteria  
+
+    We are using the OpenSubtitles language corpora along with sentence alignments for each language pair. With the corpus for language A and corpus for language B and the alignments between A-B, we can construct the translation corpus for that language pair. We use subtitle data due to the variety of language alignments (pairs) available. 
+
+    Describing/exploring data  
+
+    The distribution of data depends on the languages and language pairs. For instance, the corpus for English is 23.3GB compressed (442 million individual sentences) and for Estonian (27.5 million individual sentences), but for Estonian-English only 12.5 million sentences have alignments and are usable. For Finnish-English we have 27.3 million aligned sentences. The subtitles are stored in XML files that divide sentences and each word per sentence. The alignments are stored in other XML files that reference specific sentences in either corpus that have the same general meaning. 
+
+    Verifying data quality  
+
+    Data exists and is usable after thorough preprocessing to the required form (sentence pairs without XML). The final corpus sizes are expected to be comparable to those of Europarl corpora3, but also include non-formal speak (a better variety of language compared to official European Parliament documents). 
+
+    Visual inspection of Georgian language corpus has shown it to be of unacceptable quality. Estonian, English, Finnish, Farsi language corpora appear of acceptable quality. 

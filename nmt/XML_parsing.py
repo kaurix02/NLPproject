@@ -14,13 +14,14 @@ import codecs
 
 directory_to = ''
 diectory_from = ''
+langfrom = sys.argv[2]
 langto = sys.argv[1]    #"ka" for Georgian etc. READ FROM COMMAND LINE
 
 #Change for your setup:
 alignfiledir = "data/"
-alignfile = alignfiledir+"en-"+langto+".xml.gz"    #alignment file
-from_f = "data/en"+langto+".en"    #Saves from-language lines
-to_f = "data/en"+langto+"."+langto    #Saves to-language lines
+alignfile = alignfiledir+"/"+langfrom+"-"+langto+".xml.gz"    #alignment file
+from_f = "data/"+langfrom+langto+"."+langfrom    #Saves from-language lines
+to_f = "data/"+langfrom+langto+"."+langto    #Saves to-language lines
 from_file = codecs.open(from_f, 'w', encoding="UTF-8", errors='ignore')    #where to write language1
 to_file = codecs.open(to_f, 'w', encoding="UTF-8", errors='ignore')    #where to write language2
 
